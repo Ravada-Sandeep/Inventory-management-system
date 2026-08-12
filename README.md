@@ -15,6 +15,10 @@ The application provides secure user authentication, role-based access, product 
 - Authentication-protected pages
 - Prevents unauthenticated users from accessing the inventory system
 
+The application provides user registration, login, and logout functionality.
+
+![Login Page](screenshots/login.png)
+
 ### 👥 Role-Based Access
 
 The system supports three types of users:
@@ -45,6 +49,12 @@ Product information includes:
 - Quantity
 - Supplier
 
+![Product List](screenshots/product-list.png)
+
+### Add Product
+
+![Add Product](screenshots/add-product.png)
+
 ### 🔎 Product Search
 
 Products can be searched using a single search box based on:
@@ -72,6 +82,8 @@ It displays:
 - **Total Inventory Value**
 
 Low-stock and out-of-stock statistics are clickable and take the user directly to the corresponding filtered products.
+
+![Inventory Dashboard](screenshots/dashboard.png)
 
 ### 📉 Stock Monitoring
 
