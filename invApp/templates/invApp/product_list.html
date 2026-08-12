@@ -1,0 +1,146 @@
+{% extends 'invApp/layout.html' %}
+
+{% block title %} Product List {% endblock %}
+
+{% block content %}
+        <h1 class="text-center">Products</h1>
+  <form method="GET" class="form-inline justify-content-center mb-4">
+
+    <input
+        type="text"
+        name="search"
+        class="form-control mr-2"
+        placeholder="Search by name or SKU"
+        value="{{ search }}"
+    >
+
+    <button type="submit" class="btn btn-primary">
+        Search
+    </button>
+
+    {% if search %}
+        <a href="{% url 'product_list' %}"
+           class="btn btn-secondary ml-2">
+            Clear
+        </a>
+    {% endif %}
+
+</form>
+{% if stock == 'low' %}
+
+    <h4 class="text-center mb-3">
+        Low Stock Products
+    </h4>
+
+{% elif stock == 'out' %}
+
+    <h4 class="text-center mb-3">
+        Out of Stock Products
+    </h4>
+
+{% endif %}
+
+
+    <table class="table table-bordered table-striped text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th>Product_Id</th>
+                <th>Name</th>
+                <th>SKU</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Suppliers</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for product in page_obj %}
+            <tr>
+                <td>{{ product.product_id}}</td>
+                <td>{{ product.name}}</td>
+                <td>{{ product.sku}}</td>
+                <td>{{ product.price}}</td>
+                <td>{{ product.quantity}}</td>
+                <td>{{ product.supplier}}</td>
+                <td>
+    {% if user.is_staff %}
+
+    <a href="{% url 'product_update' product.product_id %}"
+       class="btn btn-warning">
+        Update
+    </a>
+
+    <a href="{% url 'product_delete' product.product_id %}"
+       class="btn btn-danger">
+        Delete
+    </a>
+
+    {% else %}
+        <span class="text-muted">View Only</span>
+    {% endif %}
+</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <nav aria-label="...">
+  <ul class="pagination">
+    
+      {% if page_obj.has_previous %}
+
+    <li class="page-item">
+
+        <a class="page-link"
+           href="?search={{ search }}&stock={{ stock }}&page={{ page_obj.previous_page_number }}">
+            Previous
+        </a>
+
+    </li>
+
+{% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+
+    {% if page_obj.number == num %}
+
+        <li class="page-item active">
+
+            <span class="page-link">
+                {{ num }}
+            </span>
+
+        </li>
+
+    {% else %}
+
+        <li class="page-item">
+
+            <a class="page-link"
+               href="?search={{ search }}&stock={{ stock }}&page={{ num }}">
+                {{ num }}
+            </a>
+
+        </li>
+
+    {% endif %}
+
+{% endfor %}
+    
+    {% if page_obj.has_next %}
+
+    <li class="page-item">
+
+        <a class="page-link"
+           href="?search={{ search }}&stock={{ stock }}&page={{ page_obj.next_page_number }}">
+            Next
+        </a>
+
+    </li>
+
+{% endif %}
+  </ul>
+</nav>
+
+    
+{% endblock %}

@@ -1,0 +1,230 @@
+{% extends 'invApp/layout.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+
+
+<style>
+    body {
+    background-image: url("{% static 'invApp/images/inventory.bg.webp' %}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.dashboard {
+    min-height: calc(100vh - 96px);
+    padding: 50px 30px;
+}
+
+    .dashboard-header {
+        margin-bottom: 35px;
+    }
+
+    .dashboard-header h1 {
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .dashboard-header p {
+        color: #6c757d;
+        margin-bottom: 0;
+    }
+
+    .dashboard-card {
+        background-color: #f7f1f2;
+        border: none;
+        border-radius: 12px;
+        transition: all 0.2s ease;
+        height: 100%;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-title {
+        font-size: 15px;
+        font-weight: 500;
+        color: #6c757d;
+        margin-bottom: 10px;
+    }
+
+    .card-number {
+        font-size: 32px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .card-link {
+        text-decoration: none !important;
+        color: inherit;
+        display: block;
+        height: 100%;
+    }
+
+    .card-link:hover {
+        color: inherit;
+    }
+
+    .card-description {
+        font-size: 13px;
+        color: #6c757d;
+        margin-bottom: 0;
+    }
+
+    
+</style>
+
+<div class="dashboard">
+<!-- Dashboard Header -->
+
+<div class="dashboard-header text-white">
+
+    <h1>Inventory Dashboard</h1>
+
+    <p>
+        Overview of your inventory and stock status
+    </p>
+
+</div>
+
+
+<!-- Statistics Cards -->
+
+<div class="row">
+
+    <!-- Total Products -->
+
+    <div class="col-md-6 col-lg-3 mb-4">
+
+        <a href="{% url 'product_list' %}"
+           class="card-link">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body">
+
+                    <div class="card-title">
+                        Total Products
+                    </div>
+
+                    <div class="card-number">
+                        {{ total_products }}
+                    </div>
+
+                    <p class="card-description">
+                        Products in inventory
+                    </p>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <!-- Low Stock -->
+
+    <div class="col-md-6 col-lg-3 mb-4">
+
+        <a href="{% url 'product_list' %}?stock=low"
+           class="card-link">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body">
+
+                    <div class="card-title">
+                        Low Stock
+                    </div>
+
+                    <div class="card-number">
+                        {{ low_stock }}
+                    </div>
+
+                    <p class="card-description">
+                        Click to view products
+                    </p>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <!-- Out of Stock -->
+
+    <div class="col-md-6 col-lg-3 mb-4">
+
+        <a href="{% url 'product_list' %}?stock=out"
+           class="card-link">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body">
+
+                    <div class="card-title">
+                        Out of Stock
+                    </div>
+
+                    <div class="card-number">
+                        {{ out_of_stock }}
+                    </div>
+
+                    <p class="card-description">
+                        Click to view products
+                    </p>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <!-- Inventory Value -->
+
+    <div class="col-md-6 col-lg-3 mb-4">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body">
+
+                <div class="card-title">
+                    Inventory Value
+                </div>
+
+                <div class="card-number">
+                    ₹{{ inventory_value }}
+                </div>
+
+                <p class="card-description">
+                    Total stock value
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

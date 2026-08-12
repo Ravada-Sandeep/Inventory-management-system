@@ -1,0 +1,13 @@
+{% extends 'invApp/layout.html' %}
+
+{% block title %} Register Form {% endblock %}
+
+{% block content %}
+
+   <h1 class="text-center">Register Form</h1>
+    <form method="POST" class="jumbotron">
+        {% csrf_token%}
+        {{form.as_p}}
+        <button class="btn btn-success btn-block" type="submit">Register</button>
+    </form>
+{% endblock %}
